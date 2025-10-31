@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, StudyMaterial, Content
+from .models import Category, StudyMaterial, Content, Quiz, Question, Choice
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -40,3 +40,25 @@ class StudyMaterialAdmin(admin.ModelAdmin):
 #     list_display = ('title', 'category', 'uploaded_by', 'created_at')
 #     list_filter = ('category', 'created_at')
 #     search_fields = ('title', 'description')
+
+
+# Quiz feature admin
+@admin.register(Quiz)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_published', 'created_at')
+    list_filter = ('is_published', 'created_at')
+    search_fields = ('title', 'description')
+
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('text', 'quiz')
+    list_filter = ('quiz',)
+    search_fields = ('text',)
+
+
+@admin.register(Choice)
+class ChoiceAdmin(admin.ModelAdmin):
+    list_display = ('text', 'question', 'is_correct')
+    list_filter = ('question', 'is_correct')
+    search_fields = ('text',)
