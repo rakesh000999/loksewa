@@ -17,8 +17,7 @@ class ContentViewSet(viewsets.ModelViewSet):
 
 class StudyMaterialViewSet(viewsets.ModelViewSet):
     serializer_class = StudyMaterialSerializer
-    # allow read-only access for anonymous users; modifying actions still require auth
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.AllowAny]  # Allow anonymous access to all endpoints
 
     def get_queryset(self):
         # Regular users (and anonymous) can only see published materials
@@ -33,3 +32,14 @@ class StudyMaterialViewSet(viewsets.ModelViewSet):
         study_material.download_count = F('download_count') + 1
         study_material.save()
         return Response({'status': 'download recorded'}, status=status.HTTP_200_OK)
+        
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        Allow anyone to view and download, but require authentication for other actions
+        """
+        if self.action in ['list', 'retrieve', 'record_download']:
+            permission_classes = [permissions.AllowAny]
+        else:
+            permission_classes = [permissions.IsAuthenticated]
+        return [permission() for permission in permission_classes]

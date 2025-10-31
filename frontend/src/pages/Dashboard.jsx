@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import axios from '../api/axiosConfig';
 import { Book, Download, FileText, Calendar, ArrowUpRight } from 'lucide-react';
@@ -88,25 +89,13 @@ const Dashboard = () => {
                       {material.download_count} downloads
                     </span>
 
-                    <a
-                      href={getFileUrl(material)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={async () => {
-                        // record download only for logged-in users
-                        if (user) {
-                          try {
-                            await axios.post(`/content/study-materials/${material.id}/record_download/`);
-                          } catch (e) {
-                            // ignore
-                          }
-                        }
-                      }}
+                    <Link
+                      to={`/material/${material.id}`}
                       className="inline-flex items-center text-blue-600 hover:text-blue-700"
                     >
                       View Material
                       <ArrowUpRight className="w-4 h-4 ml-1" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

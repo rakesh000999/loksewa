@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
+import ViewMaterial from './pages/ViewMaterial';
 import AuthProvider from './context/AuthContext';
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/material/:id" element={<ViewMaterial />} />
           </Routes>
         </main>
         <Footer />
