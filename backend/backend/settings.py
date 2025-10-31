@@ -52,15 +52,17 @@ REST_FRAMEWORK = {
 
 # CORS settings for React frontend
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:5173",
 ]
 
+CORS_ALLOW_CREDENTIALS = True
 # Use custom user model
 AUTH_USER_MODEL = 'accounts.User'
 
 STATIC_URL = '/static/'
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
